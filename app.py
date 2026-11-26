@@ -177,7 +177,7 @@ with right:
         )
         st.plotly_chart(fig_w, use_container_width=True)
 
-    st.markdown("#### Rendimiento y riesgo histórico")
+        st.markdown("#### Rendimiento y riesgo histórico")
     st.dataframe(
         analysis["summary"].rename(index={"Indice_CommoAR": "Índice CommoAR"}),
         use_container_width=True,
