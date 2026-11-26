@@ -160,7 +160,7 @@ fig.add_hline(
 
 st.plotly_chart(fig, use_container_width=True)
 
-    with right:
+with right:
         st.markdown("#### Ponderaciones exportadoras")
         weight_df = pd.DataFrame({
             "Complejo": ORDER,
