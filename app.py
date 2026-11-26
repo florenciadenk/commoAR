@@ -118,6 +118,11 @@ if page == "Dashboard":
             long_df, x=date_col, y="Índice (base 100)", color="Serie",
             color_discrete_map={"Indice_CommoAR": "#f5c56b"},
         )
+        for trace in fig.data:
+            if trace.name == "Indice_CommoAR":
+                trace.update(line=dict(color="#f5c56b", width=4), opacity=1)
+            else:
+                trace.update(line=dict(width=1.5), opacity=0.35)
         fig.update_layout(
             template="plotly_dark", height=430, margin=dict(l=10,r=10,t=20,b=10),
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
