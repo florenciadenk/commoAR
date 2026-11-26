@@ -115,16 +115,50 @@ if page == "Dashboard":
             value_name="Índice (base 100)",
         )
         fig = px.line(
-            long_df, x=date_col, y="Índice (base 100)", color="Serie",
-            color_discrete_map={"Indice_CommoAR": "#f5c56b"},
+    long_df,
+    x=date_col,
+    y="Índice (base 100)",
+    color="Serie",
+    color_discrete_map={"Indice_CommoAR": "#F5C56B"},
+)
+
+# Atenuar las cinco series individuales
+for trace in fig.data:
+    if trace.name != "Indice_CommoAR":
+        trace.update(
+            opacity=0.35,
+            line=dict(width=1.2)
         )
-        fig.update_layout(
-            template="plotly_dark", height=430, margin=dict(l=10,r=10,t=20,b=10),
-            paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-            legend_title_text="",
+
+# Destacar el índice CommoAR
+    else:
+        trace.update(
+            opacity=1,
+            line=dict(width=4)
         )
-        fig.add_hline(y=100, line_dash="dash", line_color="#75869a")
-        st.plotly_chart(fig, use_container_width=True)
+
+# Llevar el índice al frente y al principio de la leyenda
+fig.data = (
+    [t for t in fig.data if t.name == "Indice_CommoAR"] +
+    [t for t in fig.data if t.name != "Indice_CommoAR"]
+)
+
+fig.update_layout(
+    template="plotly_dark",
+    height=430,
+    margin=dict(l=10, r=10, t=20, b=10),
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    legend_title_text="",
+)
+
+fig.add_hline(
+    y=100,
+    line_dash="dash",
+    line_color="#75869a"
+)
+
+st.plotly_chart(fig, use_container_width=True)
 
     with right:
         st.markdown("#### Ponderaciones exportadoras")
